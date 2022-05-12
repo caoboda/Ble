@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.asLiveData
+import cn.com.heaton.blelibrary.ble.Ble.REQUEST_ENABLE_BT
 import cn.com.heaton.blelibrary.ble.model.BleDevice
 import com.blankj.utilcode.util.*
 import com.example.ble.activity.BurnRecordFileInfoActivity
@@ -66,15 +67,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initData() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             showToast("设备不支持蓝牙4.0")
             finish()
         }
-
-
-
+        BleManager.instance.turnOnBlueTooth(this)
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+           when(requestCode){
+               REQUEST_ENABLE_BT  ->{
+                   if(resultCode!=RESULT_OK){
+                       finish()
+                   }
+               }
+           }
+     }
 
 
 

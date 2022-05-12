@@ -1,6 +1,8 @@
 package com.me.blelib.manager
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
 import cn.com.heaton.blelibrary.ble.callback.BleWriteCallback
 import cn.com.heaton.blelibrary.ble.model.BleDevice
 import com.blankj.utilcode.util.Utils
@@ -30,6 +32,14 @@ class BleManager {
         Ble.stopScan()
     }
 
+    fun isBleEnable(context: Context) :Boolean{
+        return Ble.isBleEnable(context)
+    }
+
+    //打开蓝牙
+    fun turnOnBlueTooth(activity: Activity){
+        Ble.turnOnBlueTooth(activity)
+    }
     fun connect(info: ConnectInfo) {
         Ble.connect(info)
     }

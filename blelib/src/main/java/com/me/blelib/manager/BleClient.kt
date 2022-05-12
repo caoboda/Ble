@@ -1,9 +1,11 @@
 package com.me.blelib.manager
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import cn.com.heaton.blelibrary.ble.Ble
@@ -72,6 +74,16 @@ internal class BleClient {
         if (ble.isScanning) {
             scan(false)
         }
+    }
+
+    //蓝牙是否打开
+    fun isBleEnable(context: Context):Boolean{
+       return ble.isSupportBle(context) && ble.isBleEnable
+    }
+
+    //打开蓝牙
+    fun turnOnBlueTooth(activity: Activity){
+        ble.turnOnBlueTooth(activity)
     }
 
     fun connect() {
