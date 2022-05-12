@@ -21,6 +21,8 @@ import com.me.blelib.manager.BleManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.experimental.and
+import kotlin.experimental.xor
 
 class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
 
@@ -41,6 +43,21 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
         override fun onResponseData(resultBytes: ByteArray) {
             super.onResponseData(resultBytes)
             "BLE设备返回数据: ${resultBytes.toHexString()}".logE()
+            if(resultBytes[10] == 0x03.toByte() && resultBytes[11] ==0x00.toByte()){
+                if(resultBytes.size==20){
+                    //倒叙
+                    val seedTemp132=  (resultBytes[15].toInt() shl 24) + (resultBytes[14].toInt() shl 16) + (resultBytes[13].toInt() shl 8) + (resultBytes[12].toInt() shl 0)
+                    "seedTemp132= $seedTemp132".logE()
+
+                    val seedTemp32 =  (((resultBytes[15] xor resultBytes[0]) and 0x00ff.toByte()).toInt() shl 24) + (((resultBytes[14] xor resultBytes[0]) and 0x00ff.toByte()).toInt() shl 16) + (((resultBytes[14] xor resultBytes[0]) and 0x00ff.toByte()).toInt() shl 8) + (resultBytes[12].toInt() shl 0)
+                    "seedTemp32= $seedTemp32".logE()
+
+                    val gRandomKey32 = seedTemp32.toByte() xor 0x20211010.toByte()
+                    "gRandomKey32= $gRandomKey32".logE()
+                    //真正想要的值 2424879451
+
+                }
+            }
         }
 
     }
@@ -60,10 +77,10 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                     BleManager.instance.sendCommand(i.toByte(),0x01)
                     delay(50)
                 }
-                delay(50)
+                delay(100)
                 //获取软件信息指令funByte=0x02
                 BleManager.instance.sendCommand(0x01,0x02)
-                delay(50)
+                delay(200)
                 //请求seed指令funByte=0x03
                 BleManager.instance.sendCommand(0x01,0x03)
                 //NewGroup/BinaryBleManage
