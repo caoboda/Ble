@@ -58,11 +58,15 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
             lifecycleScope .launch {
                 for (i in 1..10){
                     BleManager.instance.sendCommand(i.toByte(),0x01)
-                    delay(200)
+                    delay(50)
                 }
-               // delay(200)
+                delay(50)
                 //获取软件信息指令funByte=0x02
                 BleManager.instance.sendCommand(0x01,0x02)
+                delay(50)
+                //请求seed指令funByte=0x03
+                BleManager.instance.sendCommand(0x01,0x03)
+                //NewGroup/BinaryBleManage
             }
 
 

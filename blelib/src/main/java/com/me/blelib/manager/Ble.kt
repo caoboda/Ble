@@ -193,10 +193,10 @@ internal object Ble {
             buf[13] = (crc shr 8).toByte() //高位
             try {
                 client.sendData(buf)
-                if(funByte == 0x01.toByte()) {
-                    "发送boot指令 ${buf.toHexString()}".logE()
-                 }else if(funByte == 0x02.toByte()) {
-                    "发送获取软件信息指令 ${buf.toHexString()}".logE()
+                when(funByte){
+                    0x01.toByte() -> "发送boot指令 ${buf.toHexString()}".logE()
+                    0x02.toByte() -> "发送获取软件信息指令 ${buf.toHexString()}".logE()
+                    0x03.toByte() -> "请求seed指令 ${buf.toHexString()}".logE()
                 }
             } catch (e: Exception) {
                 "发送指令 error.".logE()
