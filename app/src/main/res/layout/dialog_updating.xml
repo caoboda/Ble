@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.fphoenixcorneae.progressbar.SmartProgressBar
+        android:id="@+id/spb_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spb_animated="false"
+        app:spb_animated_duration="1000"
+        app:spb_border_color="@android:color/darker_gray"
+        app:spb_border_width="3dp"
+        app:spb_bottom_left_radius="0dp"
+        app:spb_bottom_right_radius="0dp"
+        app:spb_max="100"
+        app:spb_percent_text_color="@android:color/black"
+        app:spb_percent_text_size="16sp"
+        app:spb_progress="0"
+        app:spb_progress_bar_bg_color="@android:color/white"
+        app:spb_progress_center_color="@android:color/holo_red_dark"
+        app:spb_progress_end_color="@android:color/holo_red_dark"
+        app:spb_progress_start_color="@android:color/holo_red_dark"
+        app:spb_radius="30dp"
+        app:spb_shape_style="HORIZONTAL"
+        app:spb_show_percent_sign="true"
+        app:spb_show_percent_text="true"
+        app:spb_top_left_radius="15dp"
+        app:spb_top_right_radius="15dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

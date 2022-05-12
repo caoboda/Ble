@@ -1,0 +1,28 @@
+<resources>
+
+    <declare-styleable name="SettingView">
+        <attr name="settingTitle" format="reference|string" />
+        <attr name="progressDesRes" format="integer" />
+        <attr name="settingLeftTextView" format="reference|string" />
+        <attr name="settingRightTextView" format="reference|string" />
+        <attr name="settingValue" format="string" />
+        <attr name="isDividerShow" format="boolean" />
+        <attr name="enable" format="boolean" />
+        <attr name="isIconShow" format="boolean" />
+        <attr name="isArrowShow" format="boolean" />
+        <attr name="isTitleTextBold" format="boolean" />
+        <attr name="keyTextColor" format="reference|color" />
+        <attr name="settingIcon" format="reference" />
+        <attr name="contentTextSize" format="dimension|reference" />
+        <attr name="keyTextSize" format="dimension|reference" />
+        <attr name="helpIcon" format="reference" />
+        <attr name="contentColor" format="reference|color" />
+        <attr name="isLeftTextViewShow" format="boolean" />
+        <attr name="isRightTextViewShow" format="boolean" />
+        <attr name="background" format="reference" />
+        <attr name="arrowicon" format="reference" />
+        <attr name="setRightTextViewhint" format="reference|string" />
+        <attr name="arrowClick" format="boolean" />
+    </declare-styleable>
+
+</resources>

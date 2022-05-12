@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".MainActivity">
+
+    <com.example.ble.view.CommonTitle
+        android:id="@+id/commonTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.example.ble.view.TextViewSettingItemView
+        android:id="@+id/hardware_setting_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background="@color/transparent"
+        app:contentColor="@color/white"
+        app:isArrowShow="false"
+        app:isIconShow="false"
+        app:isRightTextViewShow="true"
+        app:isTitleTextBold="false"
+        app:keyTextColor="@color/black"
+        app:keyTextSize="16sp"
+        app:settingRightTextView=""
+        app:settingTitle="硬件版本"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commonTitle"/>
+
+    <com.example.ble.view.TextViewSettingItemView
+        android:id="@+id/softwore_setting_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background="@color/transparent"
+        app:contentColor="@color/white"
+        app:isArrowShow="false"
+        app:isIconShow="false"
+        app:isRightTextViewShow="true"
+        app:isTitleTextBold="false"
+        app:keyTextColor="@color/black"
+        app:keyTextSize="16sp"
+        app:settingRightTextView=""
+        app:settingTitle="软件版本"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hardware_setting_view"/>
+
+    <com.example.ble.view.TextViewSettingItemView
+        android:id="@+id/bitrate_setting_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background="@color/transparent"
+        app:contentColor="@color/white"
+        app:isArrowShow="false"
+        app:isIconShow="false"
+        app:isRightTextViewShow="true"
+        app:isTitleTextBold="false"
+        app:keyTextColor="@color/black"
+        app:keyTextSize="16sp"
+        app:settingRightTextView=""
+        app:settingTitle="比特率"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/softwore_setting_view"/>
+
+    <com.example.ble.view.TextViewSettingItemView
+        android:id="@+id/block_num_setting_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background="@color/transparent"
+        app:contentColor="@color/white"
+        app:isArrowShow="false"
+        app:isIconShow="false"
+        app:isRightTextViewShow="true"
+        app:isTitleTextBold="false"
+        app:keyTextColor="@color/black"
+        app:keyTextSize="16sp"
+        app:settingRightTextView=""
+        app:settingTitle="数据块数量"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bitrate_setting_view"/>
+
+    <com.example.ble.view.TextViewSettingItemView
+        android:id="@+id/burnrecord_setting_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background="@color/transparent"
+        app:contentColor="@color/white"
+        app:isArrowShow="true"
+        app:isIconShow="false"
+        app:isRightTextViewShow="true"
+        app:isTitleTextBold="false"
+        app:keyTextColor="@color/black"
+        app:keyTextSize="16sp"
+        app:settingRightTextView=""
+        app:settingTitle="进入烧录程序"
+        android:paddingRight="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/block_num_setting_view"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

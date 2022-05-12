@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Ble</string>
+    <string name="title_home">Home</string>
+    <string name="title_advanced">Advanced</string>
+    <string name="title_firmware">Firmware</string>
+    <string name="ble_pwd_fail">Wrong password, please try again.</string>
+    <string name="ble_pwd_tips">Password must be 6 digits.</string>
+    <string name="can_connect_device">Available devices</string>
+    <string name="cancel">Cancel</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="default_pwd">Default:888888</string>
+    <string name="input_pwd">Please enter password</string>
+    <string name="ok">OK</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="connecting_the_bluetooth">Connecting the Bluetooth</string>
+    <string name="loading">Loading…</string>
+    <string name="location_not_enabled">Bluetooth device may not be able to search, Please turn on the location service function of the mobile phone first. Do you want to turn it on?</string>
+    <string name="firmware_update">Firmware update</string>
+    <string name="select_target">Please select the target version!</string>
+    <string name="update_failed">Update failed</string>
+    <string name="update_succeeded">successfully updated</string>
+    <string name="update_tips">The update process takes about two minutes.\nDo not turn off or disconnect the power supply.\nDo not keep the device away from the mobile phone during update.</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="next">Next</string>
+    <string name="privacy_tips">Please agree to and accept all terms of Privacy Policy before using the App.</string>
+    <string name="warning">Warning</string>
+    <string name="sub_privacy" translatable="false">Read the full version of "{privacy}Privacy Policy{/privacy}".</string>
+    <string name="sub_privacy_start">Read the full version of "</string>
+    <string name="sub_privacy_end">".</string>
+    <string name="accept">Agree</string>
+    <string name="policy_detail">Welcome to the App. Please carefully read and understand each term of "Privacy Policy", including but not limited to:\n1. Obtaining network service for the necessary network resource.\n2. Obtaining location information for Bluetooth device search.\n3. When the user is not using the application, the location information will not be obtained.\n4. After the application is closed, the access to location information will be closed at the same time.\n\nIf you agree, please click "Agree" to start accepting our services.</string>
+    <string name="update">Update</string>
+    <string name="model">Model:</string>
+    <string name="hardware">Hardware:</string>
+    <string name="firmware">Firmware:</string>
+    <string name="boot">Boot:</string>
+    <string name="unique_code">UniqueCode:</string>
+    <string name="available_version">Available version</string>
+    <string name="input_rule">Only letters, numbers and partial punctuation( !@#$%^&amp;(),.&#8211;=_[] + )</string>
+    <string name="pwd_timeout">Password verification timed out, please try again!</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="modify_pwd">Modify Password</string>
+    <string name="modify_pwd_failed">Password modification failed, please try again!</string>
+    <string name="modify_pwd_succeeded">Password modification successfully.</string>
+    <string name="modify_name">Modify scooter name</string>
+    <string name="modify_name_failed">Scooter name modification failed, please try again!</string>
+    <string name="modify_name_succeeded">Scooter name modification successfully.</string>
+</resources>

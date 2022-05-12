@@ -1,0 +1,4 @@
+rootProject.name = "Ble"
+include ':app'
+
+include ':blelib'
