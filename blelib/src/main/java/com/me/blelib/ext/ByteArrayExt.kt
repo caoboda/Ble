@@ -369,3 +369,19 @@ private fun throwHexError(hex: String) {
 private fun throwOffsetError(byteArray: ByteArray, offset: Int, length: Int = 1, byteLength: Int = 0) {
     if (offset > byteArray.size - length - byteLength) throw IllegalArgumentException("The value of \"offset\" is out of range. It must be >= 0 and <= ${byteArray.size - length - byteLength}. Received $offset")
 }
+
+
+private fun String.hexStr2Bytes(): ByteArray? {
+    if (this == null) {
+        return null
+    }
+    if (this.isEmpty()) {
+        return ByteArray(0)
+    }
+    val byteArray = ByteArray(this.length / 2)
+    for (i in byteArray.indices) {
+        val subStr = this.substring(2 * i, 2 * i + 2)
+        byteArray[i] = subStr.toInt(16).toByte()
+    }
+    return byteArray
+}

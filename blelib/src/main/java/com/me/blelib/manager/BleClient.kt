@@ -38,6 +38,7 @@ internal class BleClient {
     private var isExit: Boolean = false
     private var isConnected: Boolean = false
 
+
     fun setListener(listener: BlelListener?) {
         this.listener = listener
       //  SubPackageOnce.instance.setListener(listener)
