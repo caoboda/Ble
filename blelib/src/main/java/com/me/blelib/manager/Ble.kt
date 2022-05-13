@@ -4,16 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import cn.com.heaton.blelibrary.ble.callback.BleWriteCallback
 import cn.com.heaton.blelibrary.ble.model.BleDevice
 import com.me.blelib.bean.ConnectInfo
 import com.me.blelib.constant.CRC16
-import com.me.blelib.constant.Common
 import com.me.blelib.constant.Config
-import com.me.blelib.constant.Constant
 import com.me.blelib.enum.ConnectStatus
 import com.me.blelib.enum.DataType
 import com.me.blelib.ext.*
+import java.util.*
 
 internal object Ble {
     private val client: BleClient = BleClient.instance
@@ -171,14 +169,14 @@ internal object Ble {
     }
 
 
-    // 发送boot指令
-    fun sendCommand(sumByte:Byte=0x01,funByte:Byte=0x01) {
+    // 发送指令
+    fun sendCommand(sumNumByte:Byte=0x01,funByte:Byte=0x01) {
       //  if (isConnected) {
             val buf = ByteArray(14)
             buf[0] = 0xB1.toByte()
             buf[1] = 0x66
             buf[2] = 3+8//n 的范围是[0,8]，因为一帧 CAN 信息最多包含 8 个字 节。
-            buf[3] = sumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
+            buf[3] = sumNumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
             // can 数据指令01
             buf[4] = funByte //功能码
             buf[5] = 0x42//B Ascii码
@@ -207,8 +205,83 @@ internal object Ble {
       //  }
     }
 
+   // 校验key指令
+    fun sendValidKeyCommand(sumNumByte:Byte=0x01,funByte:Byte=0x01,randomKey:Long) {
+        //  if (isConnected) {
+        val buf = ByteArray(14)
+        buf[0] = 0xB1.toByte()
+        buf[1] = 0x66
+        buf[2] = 3+8//n 的范围是[0,8]，因为一帧 CAN 信息最多包含 8 个字 节。
+        buf[3] = sumNumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
+        // can 数据指令01
+        buf[4] = funByte //功能码
+        buf[5] = 0x00
+        buf[6] = (randomKey shr 0).toByte()
+        buf[7] =(randomKey shr 8).toByte()
+        buf[8] =(randomKey shr 16).toByte()
+        buf[9] =(randomKey shr 24).toByte()
+        buf[10] =0x00
+        buf[11] = 0x00
+        val crc = CRC16.MODBUS(buf, 0, buf.size - 2)
+        buf[12] = crc.toByte()         //低位
+        buf[13] = (crc shr 8).toByte() //高位
+        try {
+            client.sendData(buf)
+            "校验key指令 ${buf.toHexString()}".logE()
+        } catch (e: Exception) {
+            "发送指令 error.".logE()
+            e.printStackTrace()
+        }
+        //  } else {
+        //     "Ble Device isn't connected".logE()
+        //  }
+    }
 
 
+    // 编程日期指令
+    fun sendDateCommand(sumNumByte:Byte=0x01,funByte:Byte=0x01) {
+        //  if (isConnected) {
+        val buf = ByteArray(14)
+        buf[0] = 0xB1.toByte()
+        buf[1] = 0x66
+        buf[2] = 3+8//n 的范围是[0,8]，因为一帧 CAN 信息最多包含 8 个字 节。
+        buf[3] = sumNumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
+        // can 数据指令01
+        buf[4] = funByte //功能码
+        buf[5] = 0x00
+        var calendar =  Calendar.getInstance()
+        var year=calendar.get(Calendar.YEAR)
+        var month= (calendar.get(Calendar.MONTH) + 1)
+        var day= calendar.get(Calendar.DAY_OF_MONTH)
+        var hour= calendar.get(Calendar.HOUR_OF_DAY)
+        var minute= calendar.get(Calendar.MINUTE)
+        var second= calendar.get(Calendar.SECOND)
+        ("年: $year").logE()
+        ("月: $month").logE()
+        ("日: $day").logE()
+        ("时: $hour").logE()
+        ("分: $minute").logE()
+      //  ("秒: $second").logE()
+        buf[6] = (year shr 8).toByte()
+        buf[7] = (year and 0x00ff).toByte()
+        buf[8] = month.toByte()
+        buf[9] =day.toByte()
+        buf[10] =hour.toByte()
+        buf[11] = minute.toByte()
+        val crc = CRC16.MODBUS(buf, 0, buf.size - 2)
+        buf[12] = crc.toByte()         //低位
+        buf[13] = (crc shr 8).toByte() //高位
+        try {
+            client.sendData(buf)
+            "编程日期指令 ${buf.toHexString()}".logE()
+        } catch (e: Exception) {
+            "发送指令 error.".logE()
+            e.printStackTrace()
+        }
+        //  } else {
+        //     "Ble Device isn't connected".logE()
+        //  }
+    }
 
 
 }

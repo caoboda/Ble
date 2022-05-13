@@ -55,8 +55,16 @@ class BleManager {
         Ble.sendConfigCanCommand()
     }
 
-    fun sendCommand(sumByte:Byte,funByte:Byte) {
-        Ble.sendCommand(sumByte,funByte)
+    fun sendCommand(sumNumByte:Byte=0x01,funByte:Byte) {
+        Ble.sendCommand(sumNumByte,funByte)
+    }
+
+    fun sendValidKeyCommand(sumNumByte:Byte=0x01,funByte:Byte,randomKey:Long) {
+        Ble.sendValidKeyCommand(sumNumByte,funByte,randomKey)
+    }
+
+    fun sendDateCommand(sumNumByte:Byte=0x01,funByte:Byte) {
+        Ble.sendDateCommand(sumNumByte,funByte)
     }
     companion object {
         val instance: BleManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
