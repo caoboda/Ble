@@ -24,7 +24,6 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
 
     override fun initData() {
         BleManager.instance.setListener(bleDataListener)
-        BleManager.instance.sendDateCommand(funByte =0x05)
     }
 
 
