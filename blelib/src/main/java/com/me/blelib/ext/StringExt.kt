@@ -184,74 +184,74 @@ import java.util.regex.PatternSyntaxException
 
  fun String.logA() {
     if (Config.isLogEnabled) {
-        LogUtils.a("${Common.now()} $this")
+        LogUtils.a(" $this")
     }
 }
 
  fun String.logD() {
     if (Config.isLogEnabled) {
-        LogUtils.d("${Common.now()} $this")
+        LogUtils.d(" $this")
     }
 }
 
  fun String.logE() {
     if (Config.isLogEnabled) {
-       // LogUtils.e("${Common.now()} $this")
-        Log.e("TAG","${Common.now()} $this")
+       // LogUtils.e(" $this")
+        Log.e("TAG"," $this")
     }
 }
 
  fun String.logI() {
     if (Config.isLogEnabled) {
-        LogUtils.i("${Common.now()} $this")
+        LogUtils.i(" $this")
     }
 }
 
  fun String.logV() {
     if (Config.isLogEnabled) {
-        LogUtils.v("${Common.now()} $this")
+        LogUtils.v(" $this")
     }
 }
 
  fun String.logW() {
     if (Config.isLogEnabled) {
-        LogUtils.w("${Common.now()} $this")
+        LogUtils.w(" $this")
     }
 }
 
  fun CharSequence.logA() {
     if (Config.isLogEnabled) {
-        LogUtils.a("${Common.now()} $this")
+        LogUtils.a(" $this")
     }
 }
 
  fun CharSequence.logD() {
     if (Config.isLogEnabled) {
-        LogUtils.d("${Common.now()} $this")
+        LogUtils.d(" $this")
     }
 }
 
  fun CharSequence.logE() {
     if (Config.isLogEnabled) {
-        LogUtils.e("${Common.now()} $this")
+        LogUtils.e(" $this")
     }
 }
 
  fun CharSequence.logI() {
     if (Config.isLogEnabled) {
-        LogUtils.i("${Common.now()} $this")
+        LogUtils.i(" $this")
     }
 }
 
  fun CharSequence.logV() {
     if (Config.isLogEnabled) {
-        LogUtils.v("${Common.now()} $this")
+        LogUtils.v(" $this")
     }
 }
 
  fun CharSequence.logW() {
     if (Config.isLogEnabled) {
-        LogUtils.w("${Common.now()} $this")
+        LogUtils.w(" $this")
     }
 }
 

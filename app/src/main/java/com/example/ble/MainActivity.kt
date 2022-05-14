@@ -13,6 +13,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.asLiveData
 import cn.com.heaton.blelibrary.ble.Ble.REQUEST_ENABLE_BT
 import cn.com.heaton.blelibrary.ble.model.BleDevice
+import cn.com.heaton.blelibrary.ble.utils.ByteUtils
 import com.blankj.utilcode.util.*
 import com.example.ble.activity.BurnRecordFileInfoActivity
 import com.example.ble.base.BaseActivity
@@ -20,6 +21,7 @@ import com.example.ble.bean.CmdData
 import com.example.ble.databinding.ActivityMainBinding
 import com.example.ble.util.DataUtils
 import com.example.ble.util.JsonUtil
+import com.example.ble.util.RamdomUtil
 import com.example.ble.view.DialogManager
 import com.example.ble.viewmodel.MyViewModel
 import com.google.gson.Gson
@@ -41,6 +43,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var isShowPolicy: Boolean = false
 
     override fun initView() {
+        //val  randomKey32 = RamdomUtil.ramDomNum("6B817EC6", byteArrayOf())
+      //  println(randomKey32)
         mBinding.commonTitle.setRightVisibility(View.VISIBLE)
         mBinding.commonTitle.imgRight.setImageResource(R.mipmap.main_add_icon)
         mBinding.commonTitle.setRightListener{
