@@ -19,9 +19,7 @@ class BurnRecordFileInfoActivity : BaseActivity<ActivityBurnRecordBinding>() {
     }
 
     override fun initData() {
-        val  jsonStr= JsonUtil.getJson(this,"V1.0.3.220410_BinaryInstruments.json")
-        val cmdData: CmdData = Gson().fromJson(jsonStr, CmdData::class.java)
-        Log.e("cmdData= "," $cmdData ")
+        val cmdData:CmdData=JsonUtil.getJsonData(this)
         mBinding.hardwareSettingView.value=cmdData.PROG_INFO?.HW_VERSION
         mBinding.softworeSettingView.value=cmdData.PROG_INFO?.SW_VERSION
         mBinding.bitrateSettingView.value=cmdData.PROG_INFO?.CAN_BAUDERATE

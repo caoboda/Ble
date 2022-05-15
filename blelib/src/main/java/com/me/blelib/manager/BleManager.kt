@@ -66,6 +66,14 @@ class BleManager {
     fun sendDateCommand(sumNumByte:Byte=0x01,funByte:Byte) {
         Ble.sendDateCommand(sumNumByte,funByte)
     }
+
+    fun sendLengthAndAddressCommand(sumNumByte:Byte=0x01,funByte:Byte,address: String) {
+        Ble.sendLengthAndAddressCommand(sumNumByte,funByte,address)
+    }
+
+    fun sendDataBlockCommand(sumNumByte:Byte=0x01,funByte:Byte,data_frame: String) {
+        Ble.sendDataBlockCommand(sumNumByte,funByte,data_frame)
+    }
     companion object {
         val instance: BleManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             BleManager()
