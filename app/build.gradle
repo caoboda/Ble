@@ -41,7 +41,7 @@ android {
         debug {
             debuggable true
             signingConfig signingConfigs.myConfigs//签名
-            minifyEnabled true //是否混淆
+            minifyEnabled false //是否混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {

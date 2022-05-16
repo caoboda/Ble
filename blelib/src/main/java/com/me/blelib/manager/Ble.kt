@@ -288,7 +288,7 @@ internal object Ble {
     //发送数据块指令
     fun sendDataBlockCommand(sumNumByte: Byte = 0x01, data_frame: String) {
         var hexDataFrame= data_frame.replace(" ","")
-        Log.e("TAG", " hexDataFrame= $hexDataFrame")
+       // Log.e("TAG", " hexDataFrame= $hexDataFrame")
         val hexDataFrameBytes=ByteUtils.hexStr2Bytes(hexDataFrame)
         if (isConnected) {
             val buf = ByteArray(14)
