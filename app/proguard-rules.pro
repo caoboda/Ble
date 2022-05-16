@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#ViewBinding 使用反射调用 inflate 实现基类，需要 keep ViewBinging
+-keep class * implements androidx.viewbinding.ViewBinding {
+    *;
+}

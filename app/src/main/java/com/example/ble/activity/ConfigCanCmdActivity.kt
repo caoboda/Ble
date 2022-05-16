@@ -36,7 +36,6 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
         override fun onResponseData(resultBytes: ByteArray) {
             super.onResponseData(resultBytes)
             "设备返回数据: ${resultBytes.toHexString()}".logE()
-
             if(resultBytes[10] == 0x03.toByte() && resultBytes[11] ==0x00.toByte()){ //seed返回
                 if(resultBytes.size==20) {
                     val randomBytes = byteArrayOf(resultBytes[15],resultBytes[14],resultBytes[13],resultBytes[12])
@@ -66,76 +65,74 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                                 for (i in 0 until cmdData.DATA_BLOCK_1?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_1?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             2 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_2?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_2?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             3 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_3?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_3?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             4 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_4?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_4?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             5 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_5?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_5?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             6 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_6?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_6?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             7 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_7?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_7?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             8 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_8?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_8?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             9 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_9?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_9?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                             10 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_10?.DATA_FRAME_ARRAW_LEN!!){
                                     BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_10?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
-                                    delay(50)
+                                    delay(40)
                                 }
                             }
                         }
                     }
-
-
                 }
             }else if(resultBytes[4] == 0x07.toByte() && resultBytes[5] ==0x00.toByte()){//校验key指令返回
                 //编程日期指令funByte=0x05
@@ -219,11 +216,9 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
         mBinding.queryCancmdSettingView.setOnSettingItemListener {
             BleManager.instance.sendBleQueryCommand()
         }
-
         mBinding.configCancmdSettingView.setOnSettingItemListener {
             BleManager.instance.sendConfigCanCommand()
         }
-
         //发送boot指令funByte=0x01
         mBinding.burnrecordSettingView.setOnSettingItemListener {
             lifecycleScope .launch {
@@ -239,9 +234,6 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                 BleManager.instance.sendCommand(funByte =0x03)
                 //NewGroup/BinaryBleManage
             }
-
         }
     }
-
-
 }
