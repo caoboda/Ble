@@ -285,8 +285,8 @@ internal object Ble {
         }
     }
 
-    // 发送数据长度与地址指令
-    fun sendDataBlockCommand(sumNumByte: Byte = 0x01, funByte: Byte = 0x01, data_frame: String) {
+    //发送数据块指令
+    fun sendDataBlockCommand(sumNumByte: Byte = 0x01, data_frame: String) {
         var hexDataFrame= data_frame.replace(" ","")
         Log.e("TAG", " hexDataFrame= $hexDataFrame")
         val hexDataFrameBytes=ByteUtils.hexStr2Bytes(hexDataFrame)
@@ -321,7 +321,7 @@ internal object Ble {
     }
 
     // 发送数据长度与地址指令
-    fun sendLengthAndAddressCommand(sumNumByte: Byte = 0x01, funByte: Byte = 0x01, address: String) {
+    fun sendLengthAndAddressCommand(sumNumByte: Byte = 0x01, address: String) {
         var hexAddrss= address.replace(" ","")
         Log.e("TAG", " hexAddrss= $hexAddrss")
         val addressBytes=ByteUtils.hexStr2Bytes(hexAddrss)
@@ -333,7 +333,7 @@ internal object Ble {
             buf[3] = sumNumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
             // can 数据指令01
             buf[4] =  addressBytes[0] //功能码
-            buf[5] = addressBytes[1]
+            buf[5] =  addressBytes[1]
             buf[6] =  addressBytes[2]
             buf[7] =  addressBytes[3]
             buf[8] =  addressBytes[4]
@@ -346,6 +346,41 @@ internal object Ble {
             try {
                 client.sendData(buf)
                 "发送数据长度与地址指令 ${buf.toHexString()}".logE()
+            } catch (e: Exception) {
+                "发送指令 error.".logE()
+                e.printStackTrace()
+            }
+        } else {
+            "Ble Device isn't connected".logE()
+        }
+    }
+
+    // 发送完成编程指令
+    fun sendCompleProgramCommand(sumNumByte: Byte = 0x01, crc_frame: String) {
+        var hexAddrss= crc_frame.replace(" ","")
+        Log.e("TAG", " hexAddrss= $hexAddrss")
+        val compleProgramCommandBytes=ByteUtils.hexStr2Bytes(hexAddrss)
+        if (isConnected) {
+            val buf = ByteArray(14)
+            buf[0] = 0xB1.toByte()
+            buf[1] = 0x66
+            buf[2] = 3 + 8//n 的范围是[0,8]，因为一帧 CAN 信息最多包含 8 个字 节。
+            buf[3] = sumNumByte //BLE 帧计数 0-255，每发送一帧累加 1，应答信息包含此帧计数， 以确定每一帧的发送状态。
+            // can 数据指令01
+            buf[4] =  compleProgramCommandBytes[0] //功能码
+            buf[5] = compleProgramCommandBytes[1]
+            buf[6] =  compleProgramCommandBytes[2]
+            buf[7] =  compleProgramCommandBytes[3]
+            buf[8] =  compleProgramCommandBytes[4]
+            buf[9] =  compleProgramCommandBytes[5]
+            buf[10] = compleProgramCommandBytes[6]
+            buf[11] = compleProgramCommandBytes[7]
+            val crc = CRC16.MODBUS(buf, 0, buf.size - 2)
+            buf[12] = crc.toByte()         //低位
+            buf[13] = (crc shr 8).toByte() //高位
+            try {
+                client.sendData(buf)
+                "发送完成编程指令 ${buf.toHexString()}".logE()
             } catch (e: Exception) {
                 "发送指令 error.".logE()
                 e.printStackTrace()

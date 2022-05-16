@@ -54,7 +54,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                     "发送第1块数据块指令".logE()
                     //数据长度与地址指令
                     currentCmdBlock=1
-                    BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_1?.ADDR_FRAME!!)
+                    BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_1?.ADDR_FRAME!!)
                 }
             }else if(resultBytes[10] == 0x06.toByte() && resultBytes[11] ==0x00.toByte()){//数据长度与指令返回
                 if(resultBytes.size==20) {
@@ -63,70 +63,70 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                         when (currentCmdBlock){
                             1 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_1?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_1?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_1?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             2 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_2?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_2?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_2?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             3 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_3?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_3?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_3?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             4 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_4?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_4?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_4?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             5 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_5?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_5?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_5?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             6 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_6?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_6?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_6?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             7 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_7?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_7?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_7?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             8 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_8?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_8?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_8?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             9 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_9?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_9?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_9?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
                             }
                             10 ->{
                                 for (i in 0 until cmdData.DATA_BLOCK_10?.DATA_FRAME_ARRAW_LEN!!){
-                                    BleManager.instance.sendDataBlockCommand(funByte =0x07, data_frame = cmdData?.DATA_BLOCK_10?.DATA_FRAME_ARRAY!![i])
+                                    BleManager.instance.sendDataBlockCommand(data_frame = cmdData?.DATA_BLOCK_10?.DATA_FRAME_ARRAY!![i])
                                     blockCmdCount++
                                     delay(40)
                                 }
@@ -143,68 +143,68 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                             currentCmdBlock=2
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_2?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_2?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_2?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第3块数据块指令".logE()
                             currentCmdBlock=3
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_3?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_3?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_3?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第4块数据块指令".logE()
                             currentCmdBlock=4
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_4?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_4?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_4?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第5块数据块指令".logE()
                             currentCmdBlock=5
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_5?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_5?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_5?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第6块数据块指令".logE()
                             currentCmdBlock=6
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_6?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_6?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_6?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第7块数据块指令".logE()
                             currentCmdBlock=7
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_7?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_7?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_7?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第8块数据块指令".logE()
                             currentCmdBlock=8
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_8?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_8?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_8?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第9块数据块指令".logE()
                             currentCmdBlock=9
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_9?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_9?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_9?.DATA_FRAME_ARRAW_LEN ->{
                             "发送第10块数据块指令".logE()
                             currentCmdBlock=10
                             blockCmdCount=0
                             //数据长度与地址指令
-                            BleManager.instance.sendLengthAndAddressCommand(funByte =0x06,address=cmdData?.DATA_BLOCK_10?.ADDR_FRAME!!)
+                            BleManager.instance.sendLengthAndAddressCommand(address=cmdData?.DATA_BLOCK_10?.ADDR_FRAME!!)
                         }
                         cmdData.DATA_BLOCK_10?.DATA_FRAME_ARRAW_LEN ->{
-                            "---------------10块数据块指令发送完成----------------".logE()
-                            "发送完成编程指令".logE()
+                            "----------------10块数据块指令发送完成----------------".logE()
                             //完成编程指令
+                            BleManager.instance.sendCompleProgramCommand(crc_frame =cmdData?.CHECK_BLOCK?.CRC_FRAME!!)
                         }
                     }
                 }
