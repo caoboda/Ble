@@ -3,7 +3,7 @@
     android:id="@+id/frameCommon"
     android:layout_width="match_parent"
     android:layout_height="55dp"
-    android:background="@color/light_gray">
+    android:background="@color/white">
 
     <!--标题栏-->
     <RelativeLayout

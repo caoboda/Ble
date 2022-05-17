@@ -5,8 +5,10 @@ import com.example.ble.R
 import com.example.ble.base.BaseActivity
 import com.example.ble.bean.CmdData
 import com.example.ble.databinding.ActivityConfigCancmdBinding
+import com.example.ble.manager.XpopupManager
 import com.example.ble.util.JsonUtil
 import com.example.ble.util.RamdomUtil
+import com.lxj.xpopup.impl.LoadingPopupView
 import com.me.blelib.ext.logE
 import com.me.blelib.ext.toHexString
 import com.me.blelib.manager.BleDataListener
@@ -15,10 +17,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
+    private lateinit var loadingPopupView: LoadingPopupView
     private lateinit var cmdData: CmdData
     private var blockCmdCount=0//块指令条数
     private var currentCmdBlock=1//当前发送指令所在块
     private var currentCmdBlockAddrFrame:String? = null//当前发送指令所在块地址
+    private var delayTime: Long= 60
 
 
     override fun initView() {
@@ -54,7 +58,9 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
             }else if(resultBytes[10] == 0x05.toByte() && resultBytes[11] ==0x00.toByte()){//编程日期指令返回
                 if(resultBytes.size==20) {
                     "--------共${cmdData.PROG_INFO?.DATA_BLOCK_NUM}个块----------".logE()
-                    "==================================发送第1块数据块指令=================================".logE()
+                    var currentBlockContent="==================================发送第1块数据块指令================================="
+                    currentBlockContent.logE()
+                    loadingPopupView.setTitle(currentBlockContent)
                     //数据长度与地址指令
                     currentCmdBlock=1
                     BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(), address=cmdData?.DATA_BLOCK_1?.ADDR_FRAME!!)
@@ -65,51 +71,57 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                     lifecycleScope.launch {
                         when (currentCmdBlock){
                             1 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_1?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_1?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_1?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             2 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_2?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_2?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_2?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             3 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_3?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_3?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_3?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             4 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_4?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_4?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_4?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             5 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_5?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_5?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_5?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             6 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_6?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_6?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_6?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             7 ->{
@@ -118,7 +130,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_7?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             8 ->{
@@ -127,7 +139,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_8?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             9 ->{
@@ -136,15 +148,16 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_9?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                             10 ->{
+                                currentCmdBlockAddrFrame=cmdData.DATA_BLOCK_10?.ADDR_FRAME
                                 for (i in 0 until cmdData.DATA_BLOCK_10?.DATA_FRAME_ARRAW_LEN!!){
                                     blockCmdCount++
                                     var sumNum=getsumNum(blockCmdCount)
                                     BleManager.instance.sendDataBlockCommand(sumNumByte = sumNum.toByte(),data_frame = cmdData?.DATA_BLOCK_10?.DATA_FRAME_ARRAY!![i])
-                                    delay(60)
+                                    delay(delayTime)
                                 }
                             }
                         }
@@ -154,107 +167,78 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                 //编程日期指令funByte=0x05
                 if(resultBytes.size==14) {
                     lifecycleScope.launch {
-                        when (blockCmdCount){
-                            cmdData.DATA_BLOCK_1?.DATA_FRAME_ARRAY?.size  ->{
-                                "=================================发送第2块数据块指令 前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=2
-                                blockCmdCount=0
-                                delay(60)
+                        when (currentCmdBlockAddrFrame){
+                            cmdData.DATA_BLOCK_1?.ADDR_FRAME ->{
+                                resetCurrentBlockParam(2)
                                 //数据长度与地址指令
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_2?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_2?.DATA_FRAME_ARRAY?.size  ->{
-                                "=================================发送第3块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=3
-                                blockCmdCount=0
-                                delay(60)
-                                //数据长度与地址指令
+                            cmdData.DATA_BLOCK_2?.ADDR_FRAME  ->{
+                                resetCurrentBlockParam(3)
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_3?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_3?.DATA_FRAME_ARRAY?.size  ->{
-                                "=================================发送第4块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=4
-                                blockCmdCount=0
-                                delay(60)
-                                //数据长度与地址指令
+                            cmdData.DATA_BLOCK_3?.ADDR_FRAME  ->{
+                                resetCurrentBlockParam(4)
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_4?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_4?.DATA_FRAME_ARRAY?.size ->{
-                                "=================================发送第5块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=5
-                                blockCmdCount=0
-                                delay(60)
-                                //数据长度与地址指令
+                            cmdData.DATA_BLOCK_4?.ADDR_FRAME->{
+                                resetCurrentBlockParam(5)
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_5?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_5?.DATA_FRAME_ARRAY?.size ->{
-                                "=================================发送第6块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=6
-                                blockCmdCount=0
-                                delay(60)
-                                //数据长度与地址指令
+                            cmdData.DATA_BLOCK_5?.ADDR_FRAME ->{
+                                resetCurrentBlockParam(6)
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_6?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_6?.DATA_FRAME_ARRAY?.size ->{
-                                "=================================发送第7块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                currentCmdBlock=7
-                                blockCmdCount=0
-                                delay(60)
-                                //数据长度与地址指令
+                            cmdData.DATA_BLOCK_6?.ADDR_FRAME->{
+                                resetCurrentBlockParam(7)
                                 BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_7?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_7?.DATA_FRAME_ARRAY?.size, cmdData.DATA_BLOCK_8?.DATA_FRAME_ARRAY?.size,cmdData.DATA_BLOCK_9?.DATA_FRAME_ARRAY?.size -> {
-                                if (currentCmdBlockAddrFrame == cmdData.DATA_BLOCK_7?.ADDR_FRAME) {
-                                    "=================================发送第8块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                    currentCmdBlock = 8
-                                    blockCmdCount = 0
-                                    delay(60)
-                                    //数据长度与地址指令
-                                    BleManager.instance.sendLengthAndAddressCommand(
-                                        sumNumByte = currentCmdBlock.toByte(),
-                                        address = cmdData?.DATA_BLOCK_8?.ADDR_FRAME!!
-                                    )
-                                } else if (currentCmdBlockAddrFrame == cmdData.DATA_BLOCK_8?.ADDR_FRAME) {
-                                    "=================================发送第9块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                    currentCmdBlock = 9
-                                    blockCmdCount = 0
-                                    delay(60)
-                                    //数据长度与地址指令
-                                    BleManager.instance.sendLengthAndAddressCommand(
-                                        sumNumByte = currentCmdBlock.toByte(),
-                                        address = cmdData?.DATA_BLOCK_9?.ADDR_FRAME!!
-                                    )
-                                }  else  if ( currentCmdBlockAddrFrame == cmdData.DATA_BLOCK_9?.ADDR_FRAME ){
-                                    "=================================发送第10块数据块指令  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
-                                    currentCmdBlock=10
-                                    blockCmdCount=0
-                                    delay(60)
-                                    //数据长度与地址指令
-                                    BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_10?.ADDR_FRAME!!)
-                                }
-
+                            cmdData.DATA_BLOCK_7?.ADDR_FRAME->{
+                                resetCurrentBlockParam(8)
+                                BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address = cmdData?.DATA_BLOCK_8?.ADDR_FRAME!!)
                             }
-                            cmdData.DATA_BLOCK_10?.DATA_FRAME_ARRAY?.size  ->{
-                                "=================================10块数据块指令发送完成  前一块blockCmdCount= ${blockCmdCount}=================================".logE()
+                            cmdData.DATA_BLOCK_8?.ADDR_FRAME->{
+                                resetCurrentBlockParam(9)
+                                BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(), address = cmdData?.DATA_BLOCK_9?.ADDR_FRAME!!)
+                            }
+                            cmdData.DATA_BLOCK_9?.ADDR_FRAME->{
+                                resetCurrentBlockParam(10)
+                                BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(),address=cmdData?.DATA_BLOCK_10?.ADDR_FRAME!!)
+                            }
+                            cmdData.DATA_BLOCK_10?.ADDR_FRAME ->{
                                 //完成编程指令
-                                currentCmdBlock=0
-                                blockCmdCount=0
-                                delay(60)
+                                resetCurrentBlockParam(0)
                                 BleManager.instance.sendCompleProgramCommand(crc_frame =cmdData?.CHECK_BLOCK?.CRC_FRAME!!)
                             }
                         }
                     }
 
                 }
-            }
+            }else if(resultBytes[4] == 0x08.toByte() && resultBytes[5] ==0x00.toByte()){//完成编程指令返回
+                loadingPopupView.setTitle("完成编程指令")
+                loadingPopupView.dismiss()
+             }
         }
 
     }
 
+    private suspend fun resetCurrentBlockParam(currentBlock: Int) {
+        currentCmdBlock=currentBlock
+        var currentBlockContent:String=if (currentCmdBlock==0){
+            "=================================10块数据块指令发送完成  前一块blockCmdCount= ${blockCmdCount}================================="
+        }else{
+            "=================================发送第${currentCmdBlock}块数据块指令 前一块blockCmdCount= ${blockCmdCount}================================="
+        }
+        currentBlockContent.logE()
+        loadingPopupView.setTitle(currentBlockContent)
+        blockCmdCount=0
+        delay(delayTime)
+    }
+
     //获取帧数
     private fun getsumNum(blockCmdCount:Int):Int {
-        var sumNum = if (blockCmdCount>260){
-            blockCmdCount % 260
+        var sumNum = if (blockCmdCount>255){
+            blockCmdCount % 255
         }else{
             blockCmdCount
         }
@@ -270,18 +254,18 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
         }
         //发送boot指令funByte=0x01
         mBinding.burnrecordSettingView.setOnSettingItemListener {
+            loadingPopupView = XpopupManager.showLoadingPopupView(this)
             lifecycleScope .launch {
                 for (i in 1..10){
                     BleManager.instance.sendCommand(i.toByte(),0x01)
-                    delay(60)
+                    delay(50)
                 }
                 delay(100)
                 //获取软件信息指令funByte=0x02
                 BleManager.instance.sendCommand(funByte = 0x02)
-                delay(300)
+                delay(200)
                 //请求seed指令funByte=0x03
                 BleManager.instance.sendCommand(funByte =0x03)
-                //NewGroup/BinaryBleManage
             }
         }
     }

@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //val  randomKey32 = RamdomUtil.ramDomNum("6B817EC6", byteArrayOf())
       //  println(randomKey32)
         mBinding.commonTitle.setRightVisibility(View.VISIBLE)
-        mBinding.commonTitle.imgRight.setImageResource(R.mipmap.main_add_icon)
+        mBinding.commonTitle.imgRight.setImageResource(R.mipmap.add_icon)
         mBinding.commonTitle.setRightListener{
             if (isGpsEnabled() && isLocationEnabled()) {
                 checkPermissions()
