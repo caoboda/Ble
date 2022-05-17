@@ -58,7 +58,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
             }else if(resultBytes[10] == 0x05.toByte() && resultBytes[11] ==0x00.toByte()){//编程日期指令返回
                 if(resultBytes.size==20) {
                     "--------共${cmdData.PROG_INFO?.DATA_BLOCK_NUM}个块----------".logE()
-                    var currentBlockContent="==================================发送第1块数据块指令================================="
+                    var currentBlockContent="=======发送第1块数据块指令======"
                     currentBlockContent.logE()
                     loadingPopupView.setTitle(currentBlockContent)
                     //数据长度与地址指令
@@ -215,8 +215,10 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
 
                 }
             }else if(resultBytes[4] == 0x08.toByte() && resultBytes[5] ==0x00.toByte()){//完成编程指令返回
-                loadingPopupView.setTitle("完成编程指令")
-                loadingPopupView.dismiss()
+                loadingPopupView.setTitle("完成编程指令，烧录完成。。。。。。。。。")
+                loadingPopupView.dismissWith {
+                    "完成编程指令，烧录完成。。。。。。。。。".logE()
+                }
              }
         }
 
@@ -225,9 +227,9 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
     private suspend fun resetCurrentBlockParam(currentBlock: Int) {
         currentCmdBlock=currentBlock
         var currentBlockContent:String=if (currentCmdBlock==0){
-            "=================================10块数据块指令发送完成  前一块blockCmdCount= ${blockCmdCount}================================="
+            "======10块数据块指令发送完成  前一块blockCmdCount= ${blockCmdCount}======"
         }else{
-            "=================================发送第${currentCmdBlock}块数据块指令 前一块blockCmdCount= ${blockCmdCount}================================="
+            "======发送第${currentCmdBlock}块数据块指令 前一块blockCmdCount= ${blockCmdCount}======"
         }
         currentBlockContent.logE()
         loadingPopupView.setTitle(currentBlockContent)
@@ -263,7 +265,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                 delay(100)
                 //获取软件信息指令funByte=0x02
                 BleManager.instance.sendCommand(funByte = 0x02)
-                delay(200)
+                delay(300)
                 //请求seed指令funByte=0x03
                 BleManager.instance.sendCommand(funByte =0x03)
             }

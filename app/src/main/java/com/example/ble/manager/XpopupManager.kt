@@ -11,6 +11,7 @@ object XpopupManager {
             .dismissOnBackPressed(false)
             .isLightNavigationBar(true)
             .isViewMode(false)
+            .keepScreenOn(true)
             //.asLoading(null, R.layout.custom_loading_popup)
             .asLoading(content)
             .show() as LoadingPopupView
