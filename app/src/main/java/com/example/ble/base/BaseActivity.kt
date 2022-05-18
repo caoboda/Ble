@@ -1,16 +1,18 @@
 package com.example.ble.base
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import java.lang.Exception
+import com.me.blelib.widget.dialog.LoadingProgressDialog
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<VB: ViewBinding>:AppCompatActivity() {
     lateinit var mBinding : VB
     var classSimpleName: String =javaClass.simpleName
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,11 @@ abstract class BaseActivity<VB: ViewBinding>:AppCompatActivity() {
         initView()
         initData()
         initListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingProgressDialog?.clear()
     }
 
 
@@ -41,6 +48,27 @@ abstract class BaseActivity<VB: ViewBinding>:AppCompatActivity() {
             }
         }
         return mBinding.root
+    }
+
+    private  var loadingProgressDialog: LoadingProgressDialog? = null
+
+     fun getLoadingProgressDialog(): LoadingProgressDialog? {
+        if (!isFinishing) {
+            if (loadingProgressDialog == null) {
+                loadingProgressDialog = LoadingProgressDialog(this)
+            }
+        }
+        return loadingProgressDialog
+    }
+
+     fun hideLoadingDialog() {
+        if (loadingProgressDialog != null && loadingProgressDialog!!.isShowing) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                loadingProgressDialog?.dismiss()
+            } else {
+                loadingProgressDialog?.hide()
+            }
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.ble.activity
 
+import android.os.Handler
 import androidx.lifecycle.lifecycleScope
 import com.example.ble.R
 import com.example.ble.base.BaseActivity
@@ -13,11 +14,11 @@ import com.me.blelib.ext.logE
 import com.me.blelib.ext.toHexString
 import com.me.blelib.manager.BleDataListener
 import com.me.blelib.manager.BleManager
+import com.me.blelib.widget.dialog.LoadingProgressDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
-    private lateinit var loadingPopupView: LoadingPopupView
     private lateinit var cmdData: CmdData
     private var blockCmdCount=0//块指令条数
     private var currentCmdBlock=1//当前发送指令所在块
@@ -60,7 +61,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
                     "--------共${cmdData.PROG_INFO?.DATA_BLOCK_NUM}个块----------".logE()
                     var currentBlockContent="=======发送第1块数据块指令======"
                     currentBlockContent.logE()
-                    loadingPopupView.setTitle(currentBlockContent)
+                    getLoadingProgressDialog()?.setTitle(currentBlockContent)
                     //数据长度与地址指令
                     currentCmdBlock=1
                     BleManager.instance.sendLengthAndAddressCommand(sumNumByte = currentCmdBlock.toByte(), address=cmdData?.DATA_BLOCK_1?.ADDR_FRAME!!)
@@ -215,10 +216,10 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
 
                 }
             }else if(resultBytes[4] == 0x08.toByte() && resultBytes[5] ==0x00.toByte()){//完成编程指令返回
-                loadingPopupView.setTitle("完成编程指令，烧录完成。。。。。。。。。")
-                loadingPopupView.dismissWith {
-                    "完成编程指令，烧录完成。。。。。。。。。".logE()
-                }
+                var finishText= "完成编程指令，烧录完成。。。。。。。。。"
+                getLoadingProgressDialog()?.setLoadingText(finishText)
+                hideLoadingDialog()
+                finishText.logE()
              }
         }
 
@@ -232,7 +233,7 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
             "======发送第${currentCmdBlock}块数据块指令 前一块blockCmdCount= ${blockCmdCount}======"
         }
         currentBlockContent.logE()
-        loadingPopupView.setTitle(currentBlockContent)
+        getLoadingProgressDialog()?.setLoadingText(currentBlockContent)
         blockCmdCount=0
         delay(delayTime)
     }
@@ -256,7 +257,8 @@ class ConfigCanCmdActivity : BaseActivity<ActivityConfigCancmdBinding>() {
         }
         //发送boot指令funByte=0x01
         mBinding.burnrecordSettingView.setOnSettingItemListener {
-            loadingPopupView = XpopupManager.showLoadingPopupView(this)
+            getLoadingProgressDialog()?.show()
+            getLoadingProgressDialog()?.setCancelable(false)
             lifecycleScope .launch {
                 for (i in 1..10){
                     BleManager.instance.sendCommand(i.toByte(),0x01)

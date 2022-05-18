@@ -182,9 +182,9 @@ internal class BleClient {
                         override fun onWriteProgress(progress: Double) {
                             if (progress == 1.0) {
                                 "${Common.now()} Send big data: $progress".logD()
-                                if (data[0] == Constant.HEAD_ESC && data[1] == Constant.CMD_UPDATE_FM) {
+                                /*if (data[0] == Constant.HEAD_ESC && data[1] == Constant.CMD_UPDATE_FM) {
                                     listener?.onSendFinish()
-                                }
+                                }*/
                             }
                         }
                     })
